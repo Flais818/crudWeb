@@ -31,5 +31,15 @@ namespace proyectoFinalAPI.Controllers
             await funcion.EditarProductos(parametros);
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var funcion = new DatosProductos();
+            var parametros = new ModeloProductos();
+            parametros.id = id;
+            await funcion.EliminarProductos(parametros);
+            return NoContent();
+        }
     }
 }

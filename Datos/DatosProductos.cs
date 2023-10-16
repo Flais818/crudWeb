@@ -53,6 +53,7 @@ namespace proyectoFinalAPI.Datos
             }
         }
         public async Task EditarProductos(ModeloProductos parametros)
+        
         {
             using (var sql = new SqlConnection(cn.cadenaSQL()))
             {
@@ -67,6 +68,22 @@ namespace proyectoFinalAPI.Datos
                 }
             }
         }
+        public async Task EliminarProductos(ModeloProductos parametros)
+
+        {
+            using (var sql = new SqlConnection(cn.cadenaSQL()))
+            {
+                using (var cmd = new SqlCommand("eliminarProductos", sql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("id", parametros.id);
+                    // Abrimos la conexion
+                    await sql.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
 
     }
 }
