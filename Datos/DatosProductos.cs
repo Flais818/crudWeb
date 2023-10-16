@@ -36,6 +36,7 @@ namespace proyectoFinalAPI.Datos
         }
 
         public async Task InsertarProductos (ModeloProductos parametros)
+
         {
             using (var sql = new SqlConnection(cn.cadenaSQL()))
             {
@@ -51,5 +52,21 @@ namespace proyectoFinalAPI.Datos
                 }
             }
         }
+        public async Task EditarProductos(ModeloProductos parametros)
+        {
+            using (var sql = new SqlConnection(cn.cadenaSQL()))
+            {
+                using (var cmd = new SqlCommand("editarProductos", sql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("id", parametros.id);
+                    cmd.Parameters.AddWithValue("precio", parametros.precio);
+                    // Abrimos la conexion
+                    await sql.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
     }
 }
