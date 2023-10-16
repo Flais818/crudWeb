@@ -15,5 +15,12 @@ namespace proyectoFinalAPI.Controllers
             var lista = await funcion.MostrarProductos();
             return lista;
         }
+        [HttpPost]
+        public async Task Post([FromBody] ModeloProductos parametros)
+        {
+            var funcion = new DatosProductos();
+            await funcion.InsertarProductos(parametros);
+
+        }
     }
 }

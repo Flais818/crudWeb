@@ -34,5 +34,22 @@ namespace proyectoFinalAPI.Datos
             // La lista retorna todos los datos
             return lista;    
         }
+
+        public async Task InsertarProductos (ModeloProductos parametros)
+        {
+            using (var sql = new SqlConnection(cn.cadenaSQL()))
+            {
+                using(var cmd = new SqlCommand("insertarProductos", sql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue
+                        ("@descripcion", parametros.descripcion);
+                    cmd.Parameters.AddWithValue("precio", parametros.precio);
+                    // Abrimos la conexion
+                    await sql.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }
